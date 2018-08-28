@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
-* Студент: [Максим](https://up.htmlacademy.ru/javascript/15/user/297453).
-* Наставник: `Неизвестно`.
+* Студент: [Максим Танцура](https://up.htmlacademy.ru/javascript/15/user/297453).
+* Наставник: `Кекс`.
 
 ---
 

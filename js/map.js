@@ -31,6 +31,11 @@ var features = [
   'conditioner'
 ];
 
+var location = {
+  x: '',
+  y: ''
+}
+
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
@@ -46,4 +51,13 @@ function gerRandomElemFromArray(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-console.log(gerRandomElemFromArray(titles));
+function generateAds(numberOfItems) {
+  var renderObject = [];
+  for (var i = 0; i < numberOfItems; i++) {
+    renderObject.push({
+      avatar: 'img/avatars/user' + getRandomNumber(1, 8) + '.png',
+      offer: gerRandomElemFromArray(titles),
+      address:
+    })
+  }
+}

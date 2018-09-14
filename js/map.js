@@ -62,27 +62,33 @@ function gerRandomElemFromArray(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-//случайный порядок в массиве
+//перемешивание массива
 
-function compareRandom(a, b) {
-  return Math.random() - 0.5;
+function shuffle(arr){
+  var j, temp;
+  for(var i = arr.length - 1; i > 0; i--){
+    j = Math.floor(Math.random()*(i + 1));
+    temp = arr[j];
+    arr[j] = arr[i];
+    arr[i] = temp;
+  }
+  return arr;
 }
-
-//затем вызываем с методом sort - arr.sort(compareRandom)
 
 //массив случайной длины
 
-function getRandomArrLength() {
-  var arrFeatures = features.slice();
-  var randomLength = getRandomNumber(arrFeatures / 2, arrFeatures.length);
-  var offerFeatures = [];
+ var makeFeatures = function () {
+    var arrAdvantages = features.slice();
+    var lengthArrRandom = getRandomNumber(Math.round(arrAdvantages.length / 2), arrAdvantages.length);
+    var offerFeatures = [];
 
-  for(var i = 0; i < randomLength; i++) {
-    var indexRandom = getRandomNumber(0, arrFeatures.length);
-    offerFeatures[i] = arrFeatures.slice(indexRandom, 1)
-  }
-  return offerFeatures;
-}
+    for (var i = 0; i <= lengthArrRandom; i++) {
+      var indexRandom = getRandomNumber(0, arrAdvantages.length);
+      offerFeatures[i] = arrAdvantages.splice(indexRandom, 1);
+    }
+
+    return offerFeatures;
+  };
 
 function generateAds(numberOfItems) {
   var posts = [];
@@ -104,9 +110,9 @@ function generateAds(numberOfItems) {
         guests: getRandomNumber(guests.min, guests.max),
         checkin: gerRandomElemFromArray(times),
         checkout: gerRandomElemFromArray(times),
-        features: getRandomArrLength(),
+        features: makeFeatures(),
         description: '',
-        photos: photos.sort(compareRandom) //do not work correctly!
+        photos: shuffle(photos) //все обьекты с одним и тем же порядком фотографий
       },
       location: {
         x: locationX,

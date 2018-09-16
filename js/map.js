@@ -50,6 +50,12 @@ var guests = {
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
+var pinsContainer = document.querySelector('.map__pins');
+var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var mapCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+var fragment = document.createDocumentFragment();
+
+
 //случайное число
 
 function getRandomNumber(min, max) {
@@ -123,5 +129,40 @@ function generateAds(numberOfItems) {
   return posts;
 }
 
-console.log(generateAds(5));
+// формирование метки для объекта
 
+function generatePin(pin) {
+  mapPinElement = mapPinTemplate.cloneNode(true);
+  mapPinElement.querySelector('img').src = pin.author.avatar;
+  mapPinElement.querySelector('img').alt = pin.author.title;
+  mapPinElement.style.left = pin.location.x +'px';
+  mapPinElement.style.top = pin.location.y + 'px';
+  return mapPinElement;
+}
+
+// формирование карточки
+
+function renderCard(offerObject) {
+  var mapElement = mapCardTemplate.cloneNode(true);
+  var mapCardP = mapElement.querySelectorAll('p');
+  var mapCardList = mapElement.querySelector('.popup__features');
+    // заголовок объявления
+  mapElement.querySelector('.popup__title').textContent = offerObject.offer.title;
+  // цена
+  mapElement.querySelector('.popup__text--price').innerHTML = offerObject.offer.price + '&#x20bd;/ночь';
+  // адрес
+  mapElement.querySelector('.popup__text--address').textContent = offerObject.offer.address;
+  // тип
+  mapElement.querySelector('.popup__type').textContent = offerType[offerObject.offer.type];
+  // количество гостей
+  mapCardP[2].textContent = offerObject.offer.rooms + ' комнаты для ' + offerObject.offer.guests + ' гостей';
+  // время заезда и выезда
+  mapCardP[3].textContent = 'Заезд после ' + offerObject.offer.checkin + ', выезд до ' + offerObject.offer.checkout;
+  // описание
+  mapCardP[4].textContent = offerObject.offer.description;
+  mapCardList.innerHTML = '';
+  mapCardList.insertAdjacentHTML('afterBegin', offerObject.offer.features.map(getStringFeatures).join(' '));
+  mapElement.appendChild(mapCardList);
+
+  return mapElement;
+  };

@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 var NUMBER_OF_ADS = 8;
 var OFFER_MIN_PRICE = 1000;
@@ -140,13 +140,13 @@ hotelDetails = getHotelDetails(NUMBER_OF_ADS);
 
 console.log(hotelDetails);
 
-function showPins(hotelDetails) {
-  for (var i = 0; i < hotelDetails.length; i++) {
+function showPins(offerList) {
+  for (var i = 0; i < offerList.length; i++) {
     var pinElement = pinTemplate.cloneNode(true);
-    pinElement.style.left = hotelDetails[i].location.x + 'px';
-    pinElement.style.top = hotelDetails[i].location.y + 'px';
-    pinElement.querySelector('img').src = hotelDetails[i].author.avatar;
-    pinElement.querySelector('img').alt = hotelDetails[i].offer.title;
+    pinElement.style.left = offerList[i].location.x + 'px';
+    pinElement.style.top = offerList[i].location.y + 'px';
+    pinElement.querySelector('img').src = offerList[i].author.avatar;
+    pinElement.querySelector('img').alt = offerList[i].offer.title;
     pinFragment.appendChild(pinElement);
   }
   mapPins.insertBefore(pinFragment, mainPin);
@@ -178,23 +178,23 @@ function getAdCardPhotos(arr) {
   return imgFragment;
 };
 
-function getAdCard(hotelDetails) {
+function renderCard(items) {
   for (var i = 0; i < NUMBER_OF_ADS; i++) {
     var adCardElement = adCardTemplate.cloneNode(true);
-    adCardElement.querySelector('.popup__avatar').src = hotelDetails[i].author.avatar;
-    adCardElement.querySelector('.popup__title').textContent = hotelDetails[i].offer.title;
-    adCardElement.querySelector('.popup__text--address').textContent = hotelDetails[i].offer.address;
-    adCardElement.querySelector('.popup__text--price').textContent = hotelDetails[i].offer.price + '₽/ночь';
+    adCardElement.querySelector('.popup__avatar').src = items[i].author.avatar;
+    adCardElement.querySelector('.popup__title').textContent = items[i].offer.title;
+    adCardElement.querySelector('.popup__text--address').textContent = items[i].offer.address;
+    adCardElement.querySelector('.popup__text--price').textContent = items[i].offer.price + '₽/ночь';
     adCardElement.querySelector('.popup__type').textContent = roomType[OFFER_TYPES[i]];
-    adCardElement.querySelectorAll('.popup__text--capacity').textContent = hotelDetails[i].offer.rooms + ' комнаты для ' + hotelDetails[i].offer.guests + ' гостей';
-    adCardElement.querySelectorAll('.popup__text--time').textContent = 'Время заезда в ' + hotelDetails[i].offer.checkin + ', выезда ' + hotelDetails[i].offer.checkout;
+    adCardElement.querySelectorAll('.popup__text--capacity').textContent = items[i].offer.rooms + ' комнаты для ' + items[i].offer.guests + ' гостей';
+    adCardElement.querySelectorAll('.popup__text--time').textContent = 'Время заезда в ' + items[i].offer.checkin + ', выезда ' + items[i].offer.checkout;
     adCardElement.querySelector('.popup__features').textContent = '';
-    adCardElement.querySelector('.popup__features').appendChild(getAdCardFeatures(hotelDetails[i].offer.features));
-    adCardElement.querySelector('.popup__description').textContent = hotelDetails[i].offer.description;
+    adCardElement.querySelector('.popup__features').appendChild(getAdCardFeatures(items[i].offer.features));
+    adCardElement.querySelector('.popup__description').textContent = items[i].offer.description;
     adCardElement.querySelector('.popup__photos').textContent = '';
-    adCardElement.querySelector('.popup__photos').appendChild(getAdCardPhotos(hotelDetails[i].offer.photos));
+    adCardElement.querySelector('.popup__photos').appendChild(getAdCardPhotos(items[i].offer.photos));
   }
   return adCardElement;
 };
 
-map.insertBefore(getAdCard(hotelDetails), mapFilters)
+map.insertBefore(renderCard(hotelDetails), mapFilters)

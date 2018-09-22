@@ -114,7 +114,7 @@ function getHotelDetails(numberOfAds) {
       },
       offer: {
         title: OFFER_TITLES[i],
-        address: getRandomNumber(coordinates.x.min, coordinates.x.max),
+        address: getRandomNumber(coordinates.x.min, coordinates.x.max) + ', ' + getRandomNumber(coordinates.y.min, coordinates.y.max),
         price: getRandomNumber(OFFER_MIN_PRICE, OFFER_MAX_PRICE),
         type: getRandomElemFromArray(OFFER_TYPES),
         rooms: getRandomNumber(OFFER_MIN_ROOMS, OFFER_MAX_ROOMS),

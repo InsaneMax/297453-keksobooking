@@ -185,7 +185,7 @@ function renderCard(items) {
     adCardElement.querySelector('.popup__title').textContent = items[i].offer.title;
     adCardElement.querySelector('.popup__text--address').textContent = items[i].offer.address;
     adCardElement.querySelector('.popup__text--price').textContent = items[i].offer.price + '₽/ночь';
-    adCardElement.querySelector('.popup__type').textContent = roomType[OFFER_TYPES[i]];
+    adCardElement.querySelector('.popup__type').textContent = roomType[items[i].offer.type];
     adCardElement.querySelectorAll('.popup__text--capacity').textContent = items[i].offer.rooms + ' комнаты для ' + items[i].offer.guests + ' гостей';
     adCardElement.querySelectorAll('.popup__text--time').textContent = 'Время заезда в ' + items[i].offer.checkin + ', выезда ' + items[i].offer.checkout;
     adCardElement.querySelector('.popup__features').textContent = '';

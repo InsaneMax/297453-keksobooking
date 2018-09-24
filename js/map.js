@@ -1,4 +1,4 @@
- 'use strict';
+'use strict';
 
 var NUMBER_OF_ADS = 8;
 var OFFER_MIN_PRICE = 1000;
@@ -152,6 +152,16 @@ function showPins(offerList) {
   mapPins.insertBefore(pinFragment, mainPin);
 }
 
+function generatePin(offerList) {
+  var fragment = document.createDocumentFragment();
+
+  for (var i = 0; i < offerList.length; i++) {
+    var pin = createPin(offerList[i]);
+    fragment.appendChild(pin);
+  }
+  mapPins.insertBefore(fragment, mainPin)
+}
+
 showPins(hotelDetails);
 
 
@@ -195,6 +205,6 @@ function renderCard(items) {
     adCardElement.querySelector('.popup__photos').appendChild(getAdCardPhotos(items[i].offer.photos));
   }
   return adCardElement;
-};
+}
 
-map.insertBefore(renderCard(hotelDetails), mapFilters)
+map.insertBefore(renderCard(hotelDetails), mapFilters);

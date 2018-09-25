@@ -62,18 +62,21 @@ var roomType = {
   bungalo: 'Бунгало'
 };
 
+var coordinates = {
+  x: {min: 300, max: 900},
+  y: {min: 130, max: 630}
+};
+
 var hotelDetails = [];
 var map = document.querySelector('.map');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var adCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 var adCardPhotosTemplate = document.querySelector('#card').content.querySelector('.popup__photos');
 
-var coordinates = {
-  x: {min: 300, max: 900},
-  y: {min: 130, max: 630}
-};
-
 map.classList.remove('map--faded');
+hotelDetails = getHotelDetails(NUMBER_OF_ADS);
+renderCard(hotelDetails[0]);
+renderPins(hotelDetails);
 
 // случайное число
 function getRandomNumber(min, max) {
@@ -131,8 +134,6 @@ function getHotelDetails(numberOfAds) {
 
   return result;
 }
-
-hotelDetails = getHotelDetails(NUMBER_OF_ADS);
 
 function createPin(offerObject) {
   var pinElementTemplate = pinTemplate.cloneNode(true);
@@ -193,12 +194,7 @@ function createCard(offerObject) {
   return adCardElement;
 }
 
-function renderCards(offersArray) {
-  var documentFragment = document.createDocumentFragment();
-  var newCard = createCard(offersArray[0]);
-  documentFragment.appendChild(newCard);
-  map.appendChild(documentFragment);
+function renderCard(ad) {
+  var newCard = createCard(ad);
+  map.appendChild(newCard);
 }
-
-renderPins(hotelDetails);
-renderCards(hotelDetails);
